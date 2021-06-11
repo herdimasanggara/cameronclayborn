@@ -1,0 +1,149 @@
+body {
+  background-color: black;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.c1 {
+  border-radius: 50%;
+  background-color: bisque;
+  opacity: 0.2;
+  width: 60vw;
+  height: 20vh;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  justify-content: center;
+  align-items: center;
+  animation: move1 11s ease infinite;
+  filter: blur(0px);
+  transition: 1s ease-out;
+}
+
+.c1:hover {
+  filter: blur(20px);
+  transition: 1s ease-out;
+}
+
+@keyframes move1 {
+  0%, 100% {
+    transform: translate(-50%, 0%)
+  }
+  50% {
+    transform: translate(-50%, 80vh)
+  }
+}
+
+.c2 {
+  border-radius: 50%;
+  background-color: bisque;
+  opacity: 0.2;
+  width: 70vw;
+  height: 40vh;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  justify-content: center;
+  align-items: center;
+  animation: move2 12s ease infinite;
+  filter: blur(0px);
+  transition: 1s ease-out;
+}
+
+.c2:hover {
+  filter: blur(20px);
+  transition: 1s ease-out;
+}
+
+@keyframes move2 {
+  0%, 100% {
+    transform: translate(-50%, 0%)
+  }
+  50% {
+    transform: translate(-50%, 60vh)
+  }
+}
+
+.c3 {
+  border-radius: 50%;
+  background-color: bisque;
+  opacity: 0.2;
+  width: 80vw;
+  height: 60vh;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  justify-content: center;
+  align-items: center;
+  animation: move3 13s ease infinite;
+  filter: blur(0px);
+  transition: 1s ease-out;
+}
+
+.c3:hover {
+  filter: blur(20px);
+  transition: 1s ease-out;
+}
+
+@keyframes move3 {
+  0%, 100% {
+    transform: translate(-50%, 0%)
+  }
+  50% {
+    transform: translate(-50%, 40vh)
+  }
+}
+
+.c4 {
+  border-radius: 50%;
+  background-color: bisque;
+  opacity: 0.2;
+  width: 90vw;
+  height: 80vh;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  justify-content: center;
+  align-items: center;
+  animation: move4 14s ease infinite;
+  filter: blur(0px);
+  transition: 1s ease-out;
+}
+
+.c4:hover {
+  filter: blur(20px);
+  transition: 1s ease-out;
+}
+
+@keyframes move4 {
+  0%, 100% {
+    transform: translate(-50%, 0%)
+  }
+  50% {
+    transform: translate(-50%, 20vh)
+  }
+}
+
+.c5 {
+  border-radius: 50%;
+  background-color: bisque;
+  opacity: 0.2;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0%;
+  justify-content: center;
+  align-items: center;
+  filter: blur(0px);
+  transition: 1s ease;
+}
+
+.c5:hover {
+  filter: blur(20px);
+  transition: 1s ease-out;
+}
