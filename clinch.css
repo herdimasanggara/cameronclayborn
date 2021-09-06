@@ -1,0 +1,74 @@
+html {
+  background-color: seashell;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Lekton');
+
+body {
+  overflow-x: hidden;
+}
+
+body.preload *{
+animation-duration: 0s !important;
+-webkit-animation-duration: 0s !important;
+transition:background-color 0s, opacity 0s, color 0s, width 0s, height 0s, padding 0s, margin 0s !important;}
+
+figure {
+  margin: 0;
+}
+
+img {
+  max-width: 75%;
+  margin: 0 auto;
+}
+
+*, :after, :before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 35px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: saddlebrown;
+  border-radius: 50%;
+  text-shadow: 0 0 1vh rgba(255, 255, 224, 0.75);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: pink;
+}
+
+.container {
+  max-width: 500px;
+  margin-top: 5vh;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
+.bodytext {
+  font-family: 'Lekton';
+    color: saddlebrown;
+    opacity: 1;
+  font-size: 0.9em;
+  margin-bottom: 5vh;
+}
+
+.button {
+  position: fixed;
+  width: 125px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.divider {
+  width: 200px;
+  margin: 0 auto;
+}
