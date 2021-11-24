@@ -1,176 +1,110 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>CUDDLE</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    
+    <link rel="stylesheet" href="cuddle.css" />
+    <link rel="icon" type="image/png" href="https://i.imgur.com/Zrez91P.png" />
+<!--     <script src="//unpkg.com/navigo"></script> -->
+    <script src="circle.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
 
-<head>
-  <title>CUDDLE</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel="stylesheet" href="cuddle.css">
-  <link rel="icon" type="image/png" href="https://i.imgur.com/Zrez91P.png">
+  <body></body>
 
-</head>
+  <script type="module">
+    
+    window.addEventListener("load", () => {
+      let channelSlug = "cuddle-5knd-vn8fw";
 
-<body>
+      function renderChannel(slug) {
+        // let loading = `Loading...`;
+        // document.body.innerHTML = loading;
 
-  <div class="container">
+        let contentsURL = `https://api.are.na/v2/channels/${slug}`;
 
-    <div class="img_wrap">
-      <img class="img_img" src="https://i.imgur.com/mSZI0Ry.jpg" width="45%" />
-      <div class="img_description_layer">
-        <p class="img_description"><i>Static In the Gelatinous (Ode to FEAR.) detail 1</i><br>video installation<br>5 minutes and 30 seconds<br>2019-2020</p>
-      </div>
-    </div>
+        // Fetch the channel data from the Are.na API
+        fetch(contentsURL)
+          // Grab the response in JSON
+          .then(response => response.json())
 
-    <br><br><br><br><br>
+          // Now we can turn channel data into content by mixing it with HTML
+          .then(channel => {
+            console.log(channel);
 
-    <div class="img_wrap">
-      <img class="img_img" src="https://i.imgur.com/nbIlA41.jpg" width="45%" />
-      <div class="img_description_layer">
-        <p class="img_description"><i>Static In the Gelatinous (Ode to FEAR.) detail 2</i><br>video installation<br>5 minutes and 30 seconds<br>2019-2020</p>
-      </div>
-    </div>
+            // Set the title of the page
+            document.title = channel.title;
 
-    <br><br><br><br><br>
+            // Replace the inner html of our document with our own mixture of HTML and channel data
+            document.body.innerHTML = `
+            
+       
+            <div class="container">
+              ${channel.contents
+                .map(block => {
+                  return `
+      
+                    ${(() => {
+                      // Handle each block depending on what type of block it is (i.e. Image, Text, etc)
+                      switch (block.class) {
+                        case "Image":
+                          return `
+                            <div class="img_wrap">
+                              <img
+                                class="img_img"
+                                src="${block.image.large.url}"
+                                width="45%"
+                              />
+                              <div class="img_description_layer">
+                                <p class="img_description">${block.description}</p>
+                              </div>
+                            </div>
+                            <br><br><br><br><br>
+                        `;
+                        case "Attachment":
+                          return `
+                            <div class="img_wrap_video">
+                              <video width="${block.title.slice(-3)}" controls>
+                                <source src="${block.description}" type="video/mp4">
+                              </video>
+                            </div>
+                            <br><br><br><br><br>
+                          `;
+                      }
+                    })()}
+                `;
+                })
+                .join("")}
+            </div>
 
+            <a href="index.html">
+              <div class="button"><img src="https://i.imgur.com/dsg2Ac8.png"></div>
+            </a>
+          `;
+          });
+      }
+      
+      renderChannel(channelSlug);
 
-    <div class="img_wrap_video">
-      <video width="50%" controls>
-        <source src="3.mp4" type="video/mp4">
-      </video>
-    </div>
+      // This will handle our routes
+      // const router = new Navigo("/", { hash: true });
+      // router
+      //   .on("/cuddle.html", match => {
+      //     renderChannel(channelSlug);
+      //   })
+      //   .on(() => {
+      //     renderChannel(channelSlug);
+      //   })
+      //   .resolve();
+    });
+    
+    
 
-    <br><br><br><br><br>
-
-    <div class="img_wrap_video">
-      <video width="60%" controls>
-        <source src="bodebuilder.mp4" type="video/mp4">
-      </video>
-    </div>
-
-    <br><br><br><br><br>
-
-    <div class="img_wrap">
-      <img class="img_img" src="https://i.imgur.com/9OmcaiO.jpg" />
-      <div class="img_description_layer">
-        <p class="img_description">Installation of <i>Bawdy Builder 2 (Practice the Way You Play)</i><br>2018<br>Using various objects and cushioncontainerbags made from the measurements of<br>both me and
-my father, I practice the dance of voguing in front of the gallery window.</p>
-      </div>
-    </div>
-
-    <br><br><br><br><br>
-
-    <div class="img_wrap">
-      <img class="img_img" src="https://i.imgur.com/m8hZOJQ.jpg" />
-      <div class="img_description_layer">
-        <p class="img_description"><i>Bawdy Builder 2 (Practice the Way You Play)</i><br>performance<br>2018</p>
-      </div>
-    </div>
-
-    <br><br><br><br><br>
-
-    <div class="img_wrap">
-      <img class="img_img" src="https://i.imgur.com/79BTCL1.jpg" />
-      <div class="img_description_layer">
-        <p class="img_description"><i>Bawdy Builder 2 (Practice the Way You Play)</i><br>performance<br>2018</p>
-      </div>
-    </div>
-
-    <br><br><br><br><br>
-
-    <div class="img_wrap">
-      <img class="img_img" src="https://i.imgur.com/gS8BN5o.jpg" />
-      <div class="img_description_layer">
-        <p class="img_description"><i>Bawdy Builder 2 (Practice the Way You Play)</i><br>performance<br>2018</p>
-      </div>
-    </div>
-
-    <br><br><br><br><br>
-
-    <div class="img_wrap">
-      <img class="img_img" src="https://i.imgur.com/TxMJOYd.jpg" width="45%" />
-      <div class="img_description_layer">
-        <p class="img_description">Self portrait with <i>drawerspeakermatholder</i><br>2018</p>
-      </div>
-    </div>
-
-    <br><br><br><br><br>
-
-    <div class="img_wrap">
-      <img class="img_img" src="https://i.imgur.com/k03Mr5E.jpg" width="45%" />
-      <div class="img_description_layer">
-        <p class="img_description">Self portrait with <i>cushioncontainerbag</i><br>2018</p>
-      </div>
-    </div>
-
-    <br><br><br><br><br>
-
-    <div class="img_wrap">
-      <img class="img_img" src="https://i.imgur.com/UusOFKT.jpg" />
-      <div class="img_description_layer">
-        <p class="img_description"><i>bodebag</i><br>satin, zipper(s), participants<br>2015-ongoing</p>
-      </div>
-    </div>
-
-    <br><br><br><br><br>
-
-    <div class="img_wrap">
-      <img class="img_img" src="https://i.imgur.com/QHcDXyN.jpg" />
-      <div class="img_description_layer">
-        <p class="img_description"><i>bodebag detail</i><br>satin, zipper(s), participants<br>2015-ongoing</p>
-      </div>
-    </div>
-
-    <br><br><br><br><br>
-
-    <div class="img_wrap">
-      <img class="img_img" src="https://i.imgur.com/KVVRc1D.jpg" />
-      <div class="img_description_layer">
-        <p class="img_description"><i>bodebag detail</i><br>satin, zipper(s), participants<br>2015-ongoing</p>
-      </div>
-    </div>
-
-    <br><br><br><br><br>
-
-    <div class="img_wrap">
-      <img class="img_img" src="https://i.imgur.com/V6GJKcN.jpg" />
-      <div class="img_description_layer">
-        <p class="img_description"><i>bodebag detail</i><br>satin, zipper(s), participants<br>2015-ongoing</p>
-      </div>
-    </div>
-
-    <br><br><br><br><br>
-
-    <div class="img_wrap_video">
-      <video width="60%" controls>
-        <source src="bawdybuilder.mp4" type="video/mp4">
-      </video>
-    </div>
-
-    <br><br><br><br><br>
-
-    <div class="img_wrap">
-      <img class="img_img" src="https://i.imgur.com/tKgfkRi.jpg" />
-      <div class="img_description_layer">
-        <p class="img_description"><i>Bawdy Builder 1</i><br>I am guided through exercises by a disembodied voice.</p>
-      </div>
-    </div>
-
-    <br><br><br><br><br>
-
-    <div class="img_wrap_video">
-      <video width="60%" controls>
-        <source src="substance.mp4" type="video/mp4">
-      </video>
-    </div>
-
-  </div>
-
-  <a href="index.html">
-    <div class="button"><img src="https://i.imgur.com/dsg2Ac8.png"></div>
-  </a>
-
-</body>
-
-<script src="circle.js"></script>
-
+  </script>
 </html>

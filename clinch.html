@@ -1,165 +1,96 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>CLINCH</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    
+    <link rel="stylesheet" href="/clinch.css" />
+    <link rel="icon" type="image/png" href="https://i.imgur.com/Zrez91P.png" />
+<!--     <script src="//unpkg.com/navigo"></script> -->
+    <script src="circle.js" defer></script>
+  </head>
 
-<head>
-  <title>CLINCH</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel="stylesheet" href="clinch.css">
-  <link rel="icon"
-      type="image/png"
-      href="https://i.imgur.com/Zrez91P.png">
+  <body></body>
 
-</head>
+  <script type="module">
+    window.addEventListener("load", () => {
+      let channelSlug = "clinch";
 
-<body>
+      function renderChannel(slug) {
+        // let loading = `Loading...`;
+        // document.body.innerHTML = loading;
 
-  <div class="container">
-<div class="bodytext">
-    <center>Journal Entry 4/25/21</center>
+        let contentsURL = `https://api.are.na/v2/channels/${slug}?sort=position`;
 
-    <br>
-    Omg where do I begin. So many things are happening to me right now. Sooo many things. For one, I keep waking up at 3 a.m. I don’t know where I may have heard this, but 3 a.m. is a time when the veil between the living and the dead is pierced. The dead and the living are on the same plane essentially. I remember hearing this as a kid and it always frightened me, but now I don’t mind it because its not as if the spirit veil being pierced means that only bad spirits get through, the good come with the bad as well.<br><br>
+        // Fetch the channel data from the Are.na API
+        fetch(contentsURL)
+          // Grab the response in JSON
+          .then(response => response.json())
 
-    But as I write this a little after 3 a.m. I keep noticing how my brain is having and has been having such a hard time staying on track with a single thought. I’m distracted by something in single second. Even right now, I keep stopping myself from writing to ponder a thought, an image in my brain, brought by something totally random. I even engage the thought a little. This could be something however that works in my benefit. I am someone who can engage in thought quite deeply. I see images though that cause me mental harm. I see death. I see bad things happening, but it’s all in my head. It is not a premonition. They are negative images coming forth through my anxiety, worry, and fear. What I feel like that same image driven brain can do though is write, it can manifest things. I could use to write the sketches, the scripts, or to write whatever the fuck I feel I must write and perform.<br><br>
+          // Now we can turn channel data into content by mixing it with HTML
+          .then(channel => {
+            console.log(channel);
 
-    I have come to understand that art is something where you must commit time to it. Everyday except Sunday, you should do something. No matter how big or small. Little tiny progressions into something, and the most important thing to remember is to not look back. Keep your head down and keep working, distractions will come. They will come in ways that will make them appear not as distractions, and when this happens where you are lead down a path to distraction land. Don’t freak out, let it happen, become aware of it, and then move on.<br><br>
+            // Set the title of the page
+            document.title = channel.title;
 
-The pieces I am working on now are large hard and brittle. They stand about ten feet tall or so. They have the popcorn ceiling paint on one side and blue jean insulation on the other side. My plan is to put holes through them, one that could look a little like suction cups on an octopus. I want to disturb the surface in some way. They’re small holes about inch wide. You will be able to see through them. This is the most crucial part about them. The seeing them through. This makes that this side, that side scenario get a little blurry. It’s more of an organism in that way. Something whole, but still flat.<br><br>
+            // Replace the inner html of our document with our own mixture of HTML and channel data
+            document.body.innerHTML = `
+            
+       
+            <div class="container">
+              <div class="bodytext">
+              ${channel.contents
+                .map(block => {
+                  return `
+      
+                    ${(() => {
+                      // Handle each block depending on what type of block it is (i.e. Image, Text, etc)
+                      switch (block.class) {
+                        case "Text":
+                          return `
+                            <center>${block.title}</center>
+                            ${block.content}
+                          `;
+                        case "Image":
+                          return `
+                            <br>
+                            <div class="divider"><center><img src="${block.image.large.url}"></center></div>
+                            <br>
+                        `;
+                      }
+                    })()}
+                `;
+                })
+                .join("")}
+                <br><br><br><br><br>
+              </div>
+            </div>
 
-Abundance. I have moved into a new apartment with my partner Joe. To say that I am happy about this would be an incredible understatement. I am thrilled. For so many reasons. I have never had my own place before. It feels good to walk amongst space in this way, unfettered. The  other strange thought is settling with having this much. Our place is beyond beautiful. It will be filled with beautiful things, not expensive. But purchased with meaning and care. This place, the getting it, reminds me of how lucky Joe and I are when we’re together. We are lucky people. I am not totally sure how we are and in that sense I don’t want to know how we are. I want to live in it, be here in it. Do not take it for granite, but thrive in it. Appreciate it everyday.<br><br>
+            <a href="index.html">
+              <div class="button"><img src="https://i.imgur.com/Z4PJPxO.png"></div>
+            </a>
+          `;
+          });
+      }
+      
+      renderChannel(channelSlug);
 
-<div class="divider"><center><img src="https://i.imgur.com/NT17fw5.png"></center></div>
-<br>
-
-<center>Journal Entry 2/7/21</center>
-
-<br>
-The meaning of an artwork lies somewhere between the artist and the viewer. Neither side gets to have the last word. <br><br>
-
-I write this because I am curious about that relationship. Where is the meaning of an artwork? <br><br>
-
-This burning question, almost agonizing, comes from a conversation I had yesterday with my art dealer. I showed them my newest work and in the process of talking about it with me they used the word “fetishy.” <br><br>
-
-That word “fetish” has come up before, even as I began making objects made out of vinyl, polished aluminum and other “seductive” materials. When I left school the first time. I went to a deep dive into this term wanting to know for myself what it means. Come to find out that it is a term based in latin to mean charm, amulet, with connections to dark magic, the creation of false idols. This term “fetish” was applied to objects created by West African people, spiritual objects with their own term to refer them as “nkisi/nkisi nkhondi/ mkisi”. This moment of colonialism had massive effects, extending to African body itself. <br><br>
-
-Of course now, the term “fetish” has evolved to mean many many things. I would say its contemporary context lies in the sexual. However, the use the sexual here is limiting the scope. Because really it's to describe specific sexual desires that larger culture deems inappropriate or misguided and can perhaps shift to the side of psychosis. I am always curious to know whether there is a relationship between its 14th century function and its 21st century one. Does the term fetish inherently include a body like mines in its very fabric? <br><br>
-
-Now I am aware of Karl Marx’s use to describe the creation of products and their relationship to the consumer in his much celebrated term “commodity fetishism.” So then where does this context fit in with its sexual cousin? <br><br>
-
-I ask all these questions and state this very very very brief research because I want to know how I should feel when someone wants to use that term to describe my artwork. I immediately feel a disdain, but then again…<br><br>
-
-This thing Teju Cole once said in crit really helps me understand this disdain and also a way to remedy it. He said, “You don’t have to tell me how to think about it [artwork], but you do need to tell me what it is I am looking at so I can make up my own mind” <br><br>
-
-Really helps…I am not in the business of telling others how they should think, the roots of that method lies with the totalitarian and the fascist. However, if someone wants to ask me what the inspiration was for my work or how it is I think about it, chances are we may differ as to what we see. This realization hurts the artist. Because the artist would like to think that at least in the studio they don’t have to worry about others, dragging into your studio with their own baggage and energy slinging it around and metaphorically knocking over and breaking objects right before your very eyes. But I calm down and digress. The artwork in its essence is meant to cause difference and tough conversations to be had both internally [with yourself] and externally [with others].<br><br>
-
-I will do my best as I continue to be an artist to not avoid this relationship. One that is vastly interesting and like no other because in the matter of seconds of looking we both begin to understand something about each other, a hook up that exists beyond the sexual, but is more erotic, the kind of erotic Audre Lorde refers too. So therefore, the artwork is more or less incomplete without sharing it.<br><br>
-
-<div class="divider"><center><img src="https://i.imgur.com/O6Uu1UC.png"></center></div>
-<br>
-
-<center>Journal Entry 12/18/20</center>
-
-<br>
-Color can be played with. That’s something that I feel like Im just now getting to understand. I feel like color is this very very very important and crucial part of all art practices. How we deal with it - how we address it - is a way for us to understand something. <br><br>
-
-I would say that my first successful or what I felt as successful work is the glitter vinyl donut piece. Its in that piece that I specifically chose a beige color to work with in the fabric. I am still wondering why I have not chosen to use brown. Since the sculpture was being addressed as “skin tone” - a strange feeling for any person of color this idea of “skin tone” is part of everyday life its even present in the band-aids that we wear to allow our wounds to heal. <br><br>
-
-Why is brown not known as a skin tone or more so considered a “nude”. I am referring to fashion’s name for the color beige, which is most notable in the Christian Louboutin heals. Perhaps there most popular product is the “nude” high heeled (pump) shoe that is in the color beige. What that says about the color brown as it is connected to flesh or skin is interesting to me. So then what is a brown heel? Is it simply brown? When a brown woman wears a brown heal isn’t seemingly “nude” against their skin? <br><br>
-
-Why I beige connected to the “nude?” Could be a symptom of neoclassical painting’s and its precedents obsession with the white perceivably female reclining nude. <br><br>
-
-An intimate relationship with your skin is something I am sure that every black person in America is aware of. It is indeed how we know that a particular person is considered - on the surface - as black. That of course dismisses and limits in a great way the actual African blood line that is to be connected to American blackness. <br><br>
-
-So I wonder why I work with brown so much. Why I am interested in connecting my sculptural work to my skin or flesh? <br><br>
-
-Brown is to me, and always will be, an extraordinary color. Where it finds itself connected to things in the world is immense. Coco powder, chocolate, and then to Earth, the dirt, mud. It’s a color that is extremely interpretive. It’s one that is conjured and associated through the person looking at it. This amount of reference or the morphing quality of brown almost makes me think of the color as clear. It's strange to feel that way since often a brown and black person going through out the world can experience a sense of “non-being” - it's tough to find any true personhood. People (white people) may not see you as you are because they (white people) do not have a complex or multi-dimensional perception for understanding you. <br><br>
-
-This unfortunate connection to clear could be known as being invisible - non seen. Something that Ralph Ellison so poignantly lays out in his classical novel.<br><br>
-
-But I am curious about something. <br>
-Can I make a distinction between being “clear” versus “invisible?” <br>
-Or maybe there is not a distinction to be made?  <br><br>
-
-<div class="divider"><center><img src="https://i.imgur.com/lmWwioz.png"></center></div>
-<br>
-
-<center>Journal Entry 11/16/20</center>
-
-<br>
-Working is a weird thing. The studio feels a little vacant. Theres plenty of things around, but its still kinda hard to land or stand on much. Am I not allowed to fail anymore? <br><br>
-
-I know that answer to that dark and ambiguous question is that yes indeed I am entitled to a little bit of failure. The risk of making art is tied in with this risk. I may work out or not - or more so it may not externalize how you would like it too. But that’s fine. A very very vital aspect of making art is to make sure that you are making. Making involves a since of doing something - putting shit into action. Yes, thoughts and ideas, readings, and watchings are all essential. But if there is not a making component to all of this, that perhaps you should be only an art historian instead. <br><br>
-
-My work is constantly opening up. If I looked at my work from 2016 - nearly four years ago - one could say I am not even the same artist. But could they actually draw that conclusion? Am I drawing that conclusion for myself? <br><br>
-
-I am beginning to get more involved in my watercolors and drawings. Now I am actually beginning a mural. Taking the drawings directly to the wall. I like the feel of it. It feels childish, whimsical, and tad bit rude. Fucking up the walls.<br><br>
-
-We’ll see what come of it. <br><br>
-
-As for everything else I’m working on - its getting a to point where I’m scratching my head a lot. It’s honestly a major backed up feeling from the critique I had on the popcorn ceiling pieces. Its tough for me to look at these structures wondering how they could ever be independent. But I guess that’s what it is though right? Some pieces can’t be independent. But I won’t accept that because that places limits on what it is that I can make. <br><br>
-
-Its something that’s troubling me, but I will get past it. Since Im still “moving” as it were. I’m less fearful. <br><br>
-
-<div class="divider"><center><img src="https://i.imgur.com/NT17fw5.png"></center></div>
-<br>
-
-<center>Critical Practice Essay 2019</center>
-
-<br>
-
-    I recently went to Boston for the first time. It also being the first time I paid for and stayed in my own hotel room. Each of these occasions are congruent in the way that, one: I was in a place that I had never been to
-      before, and two: In a short term private place that I had paid for. Boston, Massachusetts in my consciousness, and perhaps to a greater understanding within the US, is the location of the prim and proper, a location where majority of its
-      population are white, a location of highly elite educational institutions, and a site of conception for ideals that continue to govern the modern United States. In short, this place being "Boston" made me aware of myself within it. A feeling
-      that made me aware of my exterior - brown skin, presumably male, twenty-six years old, five foot ten, one hundred forty-five pounds, short black hair, dark eyes, wearing slim fit blue jeans, a black and white plaid shirt with a plain white
-      t-shirt underneath, all white high top Vans, and a Carhartt coat with a black panther patch covering the Carhartt logo. That is what I looked like and that is what I was wearing when the front desk hotel attendant looked at me. In my head I was
-      thinking; will they think I stole the card used to pay for the room? Will the people also checking in look at me as if I don't belong there? My questions were met with reality when not a single one of those things happened, quite the opposite
-      actually. I walked in and was met with a smile of someone also checking in, and the attendant was very kind and made me laugh. I got in late, so didn't go out exploring. I enjoyed the amenities of the room, relishing mainly in its privacy. I
-      downloaded "Grindr", a notable gay hook up app, to find that the majority of the profiles were white men, in their mid twenties to early forties, masculine presenting, or at least within the profiles and descriptions of themselves one reading
-      "white daddy seeking masc for masc." In the morning, I walked across a park and around the city streets. At times I felt weary. Pondering what the other pedestrians were thinking of me. However, this kind of pondering is not exclusive to
-      Boston. I am often concerned with my exterior sans location. Not so much my presentation (i.e. clothing), but my flesh.
-
-      <br><br>My work is concerned with space. A conception of space where rings represent the different levels of space and place (see diagram 1). In the inner most ring is the body (the "mind" included), the next ring is your domestic place (your
-      home, your room), the next ring is public place (office space, public restroom, school), and the next ring is civic place (town, city, side walk, park). Each of these expand and compress into one another, this is known because what happens to
-      you in civic space can and most likely will affect your "body space." When aware that the body comes from two other bodies (parents) that have also had their own experiences within these rings, the rings eventually approach time, or in other
-      words history. This conception of space is hacked when the body is specified. If someone's flesh is brown, how does that then affect their navigation of the rings. Furthermore, how do they feel about others who have their own rings to navigate
-      who more or less do not look like you do. As I walked through the early streets of Boston, I was interacting with the rings of others, the rings of their parents, and the parents before them and so on. In this conception of space and place, I
-      realize that my flesh is under not the eyes of the individual in front of me, but a much longer and historical gaze.
-
-      <br><br>So perhaps then the white woman who crossed the street with her dog, saw what Hortense Spillers would call the "captive body." Spillers' "captive body" is what could be unavoidable, she states, "But this body, at least from the point of
-      view of the captive community, focuses a private and particular space... the captive body becomes the source of irresistible, destructive sensuality, at the same time, the captive body reduces to a thing, becoming being for captor, in the
-      absence from a subject position, the captured sexualities provide an expression of "otherness", as a category of "otherness" the captive body translates into sheer physical powerlessness (sic)." (Spillers 67).The woman may have crossed the
-      street with her dog simply because she had to, and possibly did not even see me. The reasoning of her action is not the concern, the concern is my concern. My awareness of a specific gaze. My awareness that my flesh is, "that zero degree of
-      social conceptualization that does not escape concealment under the brush of discourse, or the reflexes of iconography." (Spillers 67). My work addresses this concern, that breaches upon an understandable paranoia, through my obsessive use of
-      brown. I address the surface, so I can get past it.
-
-      <br><br>Yet, a larger mess emerges, where I question if the aesthetics of my work are meeting this paranoia head on, meaning in a way that is combative to the "white gaze" or I am simply defining myself to it. This mess leads me to a Cartesian
-      puddle – a dark and murky one. In the puddle you can not clearly see whats in it, like that of a potion in a witch's cauldron. In the potion is a remedy, or better, an opportunity to emerge as a nothing at all, leaving room for self
-      conceptualization. A notable example would be Audre Lorde's Zami: A New Spelling of My Name, a self-proclaimed "biomythography" that takes you through a highly illustrative telling of Lorde's life, including her childhood up to adulthood. I am
-      attracted to "biomythography", like the rings in my conception of space, it is a style of writing that culminates the simultaneity of being, by incorporating multiple ways of expression, it reveals the complexity of identity, while keeping
-      aware of something's or someone's origin. In the prologue of Zami Lorde writes, "I have felt the age-old triangle of mother father and child, with the "I" at its eternal core, elongate and flatten out into the elegantly strong triad of
-      grandmother mother daughter, with the "I" moving back and forth flowing in either or both directions as needed." (Lorde 7). I attempt to signify the movement in Lorde's prologue, in relationship to my understanding of space and my practice.
-
-      <br><br>My practice is personal, but thats not to say it is completely about me. However, I am frustrated. I am frustrated because it is a funny thing to make visual work about oneself, especially if the self that you are is not in a position
-      of superiority. I have been told to think about something other than "race." I find solace in a passage of Baldwins' The Black Boy Looks at the White Boy, in it he claims, "...the really ghastly thing about trying to convey to a white man the
-      reality of the Negro experience has nothing whatever to do with the fact of color, but has to do with this man's relationship to his own life. He will face in your life only what he is willing to face in his. Well, this means that one finds
-      oneself tampering with the insides of a stranger, to no purpose, which one probably has no right to do..." (Baldwin 272). I work in abstraction because I want to see in an abstract sense; the pulled apartness, the flesh, the brown, the pink,
-      the insides, the jeans, and the white t-shirt, coming together in an object. The body in my practice can shift, it is an object in the external, in civic space, and a space where actual home can be established. In Space and Place: The
-      Perspective of Experience by Yi-Fu Tuan, Tuan defines "space" as, "...a common symbol of freedom in the Western world. Space lies open; it suggests the future and invites action. On the negative side, space and freedom are threat...To be open
-      and free is to be exposed and vulnerable." (Tuan 54). I want to acknowledge this contradiction in my practice. The perhaps more invisible intent of my work posit itself in the form of a question - Is there space beyond the body for it to be
-      free?
-
-      <br><br><br><br><br><br>
-
-    </div>
-  </div>
-
-    <a href="index.html">
-      <div class="button"><img src="https://i.imgur.com/Z4PJPxO.png"></div>
-    </a>
-
-</body>
-
-<script src="circle.js"></script>
-
+      // This will handle our routes
+      // const router = new Navigo("/", { hash: true });
+      // router
+      //   .on("/clinch.html", match => {
+      //     renderChannel("clinch");
+      //   })
+      //   .on(() => {
+      //     renderChannel(channelSlug);
+      //   })
+      //   .resolve();
+    });
+  </script>
 </html>
